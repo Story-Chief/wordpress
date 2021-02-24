@@ -75,7 +75,10 @@ function handlePublish($payload) {
 
     $is_draft = (bool)\Storychief\Settings\get_sc_option('test_mode');
     $is_draft = apply_filters('storychief_is_draft_status', $is_draft, $story);
+
     $post_type = \Storychief\Settings\get_sc_option('post_type') ? \Storychief\Settings\get_sc_option('post_type') : 'post';
+    $post_type = apply_filters('storychief_change_post_type', $post_type, $story);
+
     $post = array(
         'post_type'    => $post_type,
         'post_title'   => $story['title'],

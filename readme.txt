@@ -3,9 +3,9 @@ Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content marketing calendar, social media scheduling, content marketing, schedule facebook posts, schedule to twitter, schedule posts to Linkedin, social media analytics
 Requires at least: 4.6
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.4
-Stable tag: 1.0.24
+Stable tag: 1.0.25
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,7 +55,6 @@ This plugin:
 Developers: This plugin has numerous [actions and filters]((https://codex.wordpress.org/Plugin_API)) available that can be used to modify the default behaviour of the plugin.
 
 Actions:
-*   storychief_before_handle_filter($payload)
 *   storychief_after_publish_action($payload)
 *   storychief_after_delete_action($payload)
 *   storychief_save_author_action($payload)
@@ -67,7 +66,8 @@ Actions:
 
 Filters:
 *   storychief_before_handle_filter($payload)
-*   storychief_is_draft_status($payload)
+*   storychief_is_draft_status($is_draft, $payload)
+*   storychief_change_post_type($post_type, $payload)
 
 == Installation ==
 
@@ -96,6 +96,11 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 10.  Measure Quality
 
 == Changelog ==
+
+= 1.0.25 =
+* Improvement: Tested up to WordPress 5.6
+* Improvement: Added storychief_change_post_type filter
+* Improvement: Updated filter and action documentation
 
 = 1.0.23 =
 * Improvement: Tested up to WordPress 5.5
