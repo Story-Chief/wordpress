@@ -55,7 +55,6 @@ This plugin:
 Developers: This plugin has numerous [actions and filters]((https://codex.wordpress.org/Plugin_API)) available that can be used to modify the default behaviour of the plugin.
 
 Actions:
-*   storychief_before_handle_filter($payload)
 *   storychief_after_publish_action($payload)
 *   storychief_after_delete_action($payload)
 *   storychief_save_author_action($payload)
@@ -67,7 +66,8 @@ Actions:
 
 Filters:
 *   storychief_before_handle_filter($payload)
-*   storychief_is_draft_status($payload)
+*   storychief_is_draft_status($is_draft, $payload)
+*   storychief_change_post_type($post_type, $payload)
 
 == Installation ==
 
