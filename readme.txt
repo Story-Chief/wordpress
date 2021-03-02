@@ -68,6 +68,7 @@ Filters:
 *   storychief_before_handle_filter($payload)
 *   storychief_is_draft_status($is_draft, $payload)
 *   storychief_change_post_type($post_type, $payload)
+*   storychief_alter_response($response)
 
 == Installation ==
 
