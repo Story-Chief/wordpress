@@ -56,6 +56,9 @@ function handle(WP_REST_Request $request) {
     }
 
     if (is_wp_error($response)) return $response;
+
+    $response = apply_filters('storychief_alter_response', $response);
+
     if (!is_null($response)) $response  = \Storychief\Tools\appendMac($response);
 
     return rest_ensure_response($response);
