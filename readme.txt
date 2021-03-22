@@ -52,7 +52,7 @@ This plugin:
 
 === Actions and filters ===
 
-Developers: This plugin has numerous [actions and filters]((https://codex.wordpress.org/Plugin_API)) available that can be used to modify the default behaviour of the plugin.
+Developers: This plugin has numerous [actions and filters](https://codex.wordpress.org/Plugin_API) available that can be used to modify the default behaviour of the plugin.
 
 Actions:
 *   storychief_after_publish_action($payload)
