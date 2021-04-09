@@ -97,6 +97,7 @@ class Admin {
         if($_POST['tab'] === 'config') {
             \Storychief\Settings\update_sc_option('encryption_key', $_POST['key']);
             \Storychief\Settings\update_sc_option('test_mode', isset($_POST['test_mode']) ? true : false);
+            \Storychief\Settings\update_sc_option('debug_mode', isset($_POST['debug_mode']) ? true : false);
             \Storychief\Settings\update_sc_option('author_create', isset($_POST['author_create']) ? true : false);
             \Storychief\Settings\update_sc_option('category_create', isset($_POST['category_create']) ? true : false);
             \Storychief\Settings\update_sc_option('tag_create', isset($_POST['tag_create']) ? true : false);
@@ -153,6 +154,7 @@ class Admin {
 	public static function display_configuration_page() {
 		$encryption_key = \Storychief\Settings\get_sc_option('encryption_key');
 		$test_mode = \Storychief\Settings\get_sc_option('test_mode');
+		$debug_mode = \Storychief\Settings\get_sc_option('debug_mode');
 		$author_create = \Storychief\Settings\get_sc_option('author_create');
         $category_create = \Storychief\Settings\get_sc_option('category_create');
         $tag_create = \Storychief\Settings\get_sc_option('tag_create');
@@ -166,7 +168,7 @@ class Admin {
         $post_types['post'] = 'post';
         $selected_post_type = \Storychief\Settings\get_sc_option('post_type') ? \Storychief\Settings\get_sc_option('post_type') : 'post';
         $wp_url = get_site_url();
-        self::view('config', compact('encryption_key', 'wp_url', 'test_mode', 'author_create', 'category_create', 'tag_create', 'sideload_images', 'styling_caption', 'styling_video', 'styling_align', 'post_types', 'selected_post_type'));
+        self::view('config', compact('encryption_key', 'wp_url', 'test_mode', 'debug_mode', 'author_create', 'category_create', 'tag_create', 'sideload_images', 'styling_caption', 'styling_video', 'styling_align', 'post_types', 'selected_post_type'));
 	}
 
     public static function view($name, array $args = array()) {
