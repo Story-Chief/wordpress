@@ -22,9 +22,7 @@ add_action('rest_api_init', __NAMESPACE__ . '\register_routes');
  * @return mixed
  */
 function handle(WP_REST_Request $request) {
-    // We do this because some badly configured servers will return notices and warnings
-    // that get prepended or appended to the rest response.
-    error_reporting(0);
+    storychief_debug_mode();
 
     $payload = json_decode($request->get_body(), true);
 
@@ -276,4 +274,29 @@ function safely_upsert_story ($data) {
     kses_init_filters();
 
     return $post_ID;
+}
+
+/**
+ * Handle error reporting.
+ * Hide all errors from displaying and add specific logging when debug mode is enabled
+ */
+function storychief_debug_mode()
+{
+    // We do this because some badly configured servers will return notices and warnings
+    // that get prepended or appended to the rest response.
+    ini_set('display_errors', 0);
+
+    $is_debug = (bool)\Storychief\Settings\get_sc_option('debug_mode');
+
+    if ($is_debug) {
+        // Turn on error reporting.
+        error_reporting(E_ALL);
+
+        // Sets to log errors. Use 0 (or omit) to not log errors.
+        ini_set('log_errors', 1);
+
+        // Sets a log file path you can access in the theme editor.
+        $log_path = STORYCHIEF_DIR . DIRECTORY_SEPARATOR . 'error.log';
+        ini_set('error_log', $log_path);
+    }
 }

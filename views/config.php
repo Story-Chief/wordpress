@@ -75,6 +75,16 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                     </tr>
                     <tr>
                         <th scope="row"><label
+                                    for="debug_mode"><?php esc_html_e('Debug mode', 'storychief'); ?></label></th>
+                        <td>
+                            <input type="checkbox" name="debug_mode"
+                                   value="1" <?php echo ($debug_mode == 1) ? 'checked' : '' ?>> Enable debug mode<br>
+                            <p class="description"><?php esc_html_e('Logs any error in the file "/wp-content/plugins/story-chief/error.log". Use it for debugging or sharing with StoryChief support',
+                                    'storychief'); ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label
                                     for="author_create"><?php esc_html_e('Create unknown authors',
                                     'storychief'); ?></label>
                         </th>
