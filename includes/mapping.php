@@ -59,7 +59,8 @@ function saveTags($story) {
             if($term){
                 $tags[] = (int)$term->term_id;
             } elseif (\Storychief\Settings\get_sc_option('tag_create')) {
-                $tags[] = (int)wp_create_tag($tag['name']);
+                $tag = wp_create_tag($tag['name']);
+                $tags[] = (int) $tag['term_id'];
             }
         }
 
