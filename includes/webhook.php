@@ -5,6 +5,18 @@ namespace Storychief\Webhook;
 use WP_REST_Request;
 use WP_Error;
 
+function disable_cron() {
+    if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/wp-json/storychief/') !== false) {
+        if ( ! defined( 'DISABLE_WP_CRON' ) ) {
+            define( 'DISABLE_WP_CRON', true );
+        }
+
+        remove_action('init', 'wp_cron');
+        remove_action('wp_loaded', '_wp_cron');
+    }
+}
+add_action('plugins_loaded', __NAMESPACE__ . '\disable_cron', 0, 20);
+
 function register_routes() {
     register_rest_route('storychief', 'webhook', array(
         'methods'  => 'POST',
