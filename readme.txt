@@ -5,7 +5,7 @@ Tags: Content marketing calendar, social media scheduling, content marketing, sc
 Requires at least: 4.6
 Tested up to: 5.6
 Requires PHP: 5.4
-Stable tag: 1.0.30
+Stable tag: 1.0.31
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -97,6 +97,9 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 10.  Measure Quality
 
 == Changelog ==
+
+= 1.0.31 =
+* Improvement: Add improvements to the security
 
 = 1.0.30 =
 * Improvement: Disable WP-Cron when StoryChief's webhook is called.
