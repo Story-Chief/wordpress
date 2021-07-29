@@ -44,7 +44,7 @@ class Admin {
 	}
 
 	public static function admin_menu() {
-		$hook = add_options_page('Storychief', 'Storychief', 'manage_options', 'storychief', array(
+		$hook = add_options_page('StoryChief', 'StoryChief', 'manage_options', 'storychief', array(
 			'\Storychief\Admin',
 			'display_configuration_page'
 		));
