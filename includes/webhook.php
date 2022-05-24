@@ -92,10 +92,12 @@ function handlePublish($payload) {
     $post_type = \Storychief\Settings\get_sc_option('post_type') ? \Storychief\Settings\get_sc_option('post_type') : 'post';
     $post_type = apply_filters('storychief_change_post_type', $post_type, $story);
 
+    $content = format_shortcodes($story['content']);
+
     $post = array(
         'post_type'    => $post_type,
         'post_title'   => $story['title'],
-        'post_content' => $story['content'],
+        'post_content' => $content,
         'post_excerpt' => $story['excerpt'] ? $story['excerpt'] : '',
         'post_status'  => $is_draft ? 'draft' : 'publish',
         'post_author'  => null,
@@ -168,10 +170,12 @@ function handleUpdate($payload) {
     $is_test_mode = (bool)\Storychief\Settings\get_sc_option('test_mode');
     $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
 
+    $content = format_shortcodes($story['content']);
+
     $post = array(
         'ID'           => $story['external_id'],
         'post_title'   => $story['title'],
-        'post_content' => $story['content'],
+        'post_content' => $content,
         'post_excerpt' => $story['excerpt'] ? $story['excerpt'] : '',
         'post_status'  => $is_draft ? 'draft' : 'publish',
         'meta_input'   => array(),
@@ -286,6 +290,21 @@ function safely_upsert_story ($data) {
     kses_init_filters();
 
     return $post_ID;
+}
+
+function format_shortcodes($content) {
+
+    preg_match_all('/' . get_shortcode_regex() . '/', $content, $matches, PREG_SET_ORDER);
+
+    foreach ($matches as $shortcode) {
+        $shortcode_string = $shortcode[0];
+        if ($shortcode_string) {
+            $shortcode_string_formatted = str_replace(['&quot;', '”'], '"', $shortcode_string);
+            $content = str_replace($shortcode_string, $shortcode_string_formatted, $content);
+        }
+    }
+
+    return $content;
 }
 
 /**
