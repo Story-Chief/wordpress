@@ -5,7 +5,7 @@ Tags: Content marketing calendar, social media scheduling, content marketing, sc
 Requires at least: 4.6
 Tested up to: 6.0
 Requires PHP: 5.4
-Stable tag: 1.0.33
+Stable tag: 1.0.34
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -97,6 +97,9 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 10.  Measure Quality
 
 == Changelog ==
+
+= 1.0.34 =
+* Bugfix: Solved edge-case where media URL conflicts with post url
 
 = 1.0.33 =
 * Added formatting of shortcodes

@@ -222,7 +222,7 @@ function saveFeaturedImage($story) {
     if (isset($story['featured_image']['data']['sizes']['full'])) {
         $post = get_post($story['external_id']);
         $image_url = $story['featured_image']['data']['sizes']['full'];
-        $alt = (isset($story['featured_image']['data']['alt']) && $story['featured_image']['data']['alt']) ? $story['featured_image']['data']['alt'] : $post->post_title;
+        $alt = (isset($story['featured_image']['data']['alt']) && $story['featured_image']['data']['alt']) ? $story['featured_image']['data']['alt'] : $post->post_title . " cover";
 
         $uploader = new ImageUploader($image_url, $alt, $post);
         $uploader->save();
