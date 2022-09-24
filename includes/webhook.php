@@ -143,7 +143,7 @@ function handlePublish($payload) {
     // WPEngine (which caches outside of WP) also listens for this action.
     clean_post_cache($post_ID);
 
-    $permalink = \Storychief\Tools\getPermalink($post_ID);
+    $permalink = apply_filters( 'storychief_publish_permalink', \Storychief\Tools\getPermalink($post_ID), $post_ID );
 
     return array(
         'id'        => $post_ID,
@@ -220,7 +220,7 @@ function handleUpdate($payload) {
     // WPEngine (which caches outside of WP) also listens for this action.
     clean_post_cache($post_ID);
 
-    $permalink = \Storychief\Tools\getPermalink($post_ID);
+    $permalink = apply_filters( 'storychief_publish_permalink', \Storychief\Tools\getPermalink($post_ID), $post_ID );
 
     return array(
         'id'        => $post_ID,
