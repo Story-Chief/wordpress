@@ -69,6 +69,7 @@ Filters:
 *   storychief_is_draft_status($is_draft, $payload)
 *   storychief_change_post_type($post_type, $payload)
 *   storychief_alter_response($response)
+*   storychief_publish_permalink($permalink, $postID)
 
 == Installation ==
 
