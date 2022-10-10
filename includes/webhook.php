@@ -303,8 +303,9 @@ function format_shortcodes($content) {
             $content = str_replace($shortcode_string, $shortcode_string_formatted, $content);
         }
     }
-
-    return $content;
+    
+    // Decode html entities.
+    return wp_specialchars_decode($content, ENT_QUOTES);
 }
 
 /**
