@@ -93,6 +93,7 @@ function handlePublish($payload) {
     $post_type = apply_filters('storychief_change_post_type', $post_type, $story);
 
     $content = format_shortcodes($story['content']);
+    $content = decode_gutenberg_blocks_html_entities($content);
 
     $post = array(
         'post_type'    => $post_type,
@@ -171,6 +172,7 @@ function handleUpdate($payload) {
     $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
 
     $content = format_shortcodes($story['content']);
+    $content = decode_gutenberg_blocks_html_entities($content);
 
     $post = array(
         'ID'           => $story['external_id'],
@@ -303,9 +305,20 @@ function format_shortcodes($content) {
             $content = str_replace($shortcode_string, $shortcode_string_formatted, $content);
         }
     }
-    
-    // Decode html entities.
-    return wp_specialchars_decode($content, ENT_QUOTES);
+
+    return $content;
+}
+
+/**
+ * Replaces html entities that are used in gutenberg blocks.
+ */
+function decode_gutenberg_blocks_html_entities($content) {
+
+    $content = str_replace("&lt;!--", "<!--", $content);
+    $content = str_replace("--&gt;", "-->", $content);
+    $content = str_replace("&quot;", "'", $content);
+
+    return $content;
 }
 
 /**
