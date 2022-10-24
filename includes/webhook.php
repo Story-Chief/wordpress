@@ -314,9 +314,19 @@ function format_shortcodes($content) {
  */
 function decode_gutenberg_blocks_html_entities($content) {
 
-    $content = str_replace("&lt;!--", "<!--", $content);
-    $content = str_replace("--&gt;", "-->", $content);
-    $content = str_replace("&quot;", "'", $content);
+    preg_match_all('<!-- wp:(.*?)-->', $content, $matches, PREG_SET_ORDER); // Get all gutenberg blocks
+
+    if (count($matches)){
+        $content = str_replace("&lt;!--", "<!--", $content);
+        $content = str_replace("--&gt;", "-->", $content);
+        foreach ($matches as $block) {
+            $block_json = $block[0];
+            if ($block_json) {
+                $block_json_formatted = str_replace(['&quot;', '”'], '"', $block_json);
+                $content = str_replace($block_json, $block_json_formatted, $content);
+            }
+        }
+    }
 
     return $content;
 }
