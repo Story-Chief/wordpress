@@ -93,6 +93,7 @@ function handlePublish($payload) {
     $post_type = apply_filters('storychief_change_post_type', $post_type, $story);
 
     $content = format_shortcodes($story['content']);
+    $content = decode_gutenberg_blocks_html_entities($content);
 
     $post = array(
         'post_type'    => $post_type,
@@ -171,6 +172,7 @@ function handleUpdate($payload) {
     $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
 
     $content = format_shortcodes($story['content']);
+    $content = decode_gutenberg_blocks_html_entities($content);
 
     $post = array(
         'ID'           => $story['external_id'],
@@ -301,6 +303,28 @@ function format_shortcodes($content) {
         if ($shortcode_string) {
             $shortcode_string_formatted = str_replace(['&quot;', '”'], '"', $shortcode_string);
             $content = str_replace($shortcode_string, $shortcode_string_formatted, $content);
+        }
+    }
+
+    return $content;
+}
+
+/**
+ * Replaces html entities that are used in gutenberg blocks.
+ */
+function decode_gutenberg_blocks_html_entities($content) {
+
+    preg_match_all('<!-- wp:(.*?)-->', $content, $matches, PREG_SET_ORDER); // Get all gutenberg blocks
+
+    if (count($matches)){
+        $content = str_replace("&lt;!--", "<!--", $content);
+        $content = str_replace("--&gt;", "-->", $content);
+        foreach ($matches as $block) {
+            $block_json = $block[0];
+            if ($block_json) {
+                $block_json_formatted = str_replace(['&quot;', '”'], '"', $block_json);
+                $content = str_replace($block_json, $block_json_formatted, $content);
+            }
         }
     }
 
