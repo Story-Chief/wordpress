@@ -166,7 +166,7 @@ class Admin {
 
         $post_types = get_post_types(['_builtin' => false]);
         $post_types['post'] = 'post';
-        $post_types['post'] = 'post';
+        $post_types['page'] = 'page';
         $selected_post_type = \Storychief\Settings\get_sc_option('post_type') ? \Storychief\Settings\get_sc_option('post_type') : 'post';
         $wp_url = get_site_url();
         self::view('config', compact('encryption_key', 'wp_url', 'test_mode', 'debug_mode', 'author_create', 'category_create', 'tag_create', 'sideload_images', 'styling_caption', 'styling_video', 'styling_align', 'post_types', 'selected_post_type'));
