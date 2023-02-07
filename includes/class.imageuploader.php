@@ -103,26 +103,16 @@ class ImageUploader
         if (is_file($image_path)) {
             $this->url = $image_url;
             // If the image already exists, get the id to link it to the post
-            $file  = basename($url);
-            $query = array(
-                'post_type'  => 'attachment',
-                'fields'     => 'ids',
-                'meta_query' => array(
-                    array(
-                        'key'     => '_wp_attachment_metadata',
-                        'value'   => $file,
-                        'compare' => 'LIKE',
-                    ),
-                )
-            );
-
-            $ids = get_posts($query);
-
-            if (!empty($ids)) {
-                $this->attachment_id = $ids[0];
+            $attachment_id = attachment_url_to_postid($uploader->url);
+            if ($attachment_id) {
+                $this->attachment_id = $attachment_id;
+                curl_close($ch);
+                return true;
+            } else {
+                $num = uniqid();
+                $image_path = urldecode($upload_dir['path'] . '/' . $num . '_' . $image_name);
+                $image_url = urldecode($upload_dir['url'] . '/' . $num . '_' . $image_name);
             }
-            curl_close($ch);
-            return true;
         }
 
         curl_close($ch);
