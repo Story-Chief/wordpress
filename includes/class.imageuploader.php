@@ -103,7 +103,7 @@ class ImageUploader
         if (is_file($image_path)) {
             $this->url = $image_url;
             // If the image already exists, get the id to link it to the post
-            $attachment_id = attachment_url_to_postid($uploader->url);
+            $attachment_id = attachment_url_to_postid($image_url);
             if ($attachment_id) {
                 $this->attachment_id = $attachment_id;
                 curl_close($ch);
