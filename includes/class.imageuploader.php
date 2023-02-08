@@ -2,13 +2,16 @@
 
 namespace Storychief;
 
-class ImageUploader {
+class ImageUploader
+{
     public $post;
     public $url;
     public $alt;
     public $filename;
+    public $attachment_id;
 
-    public function __construct($url, $alt, $post) {
+    public function __construct($url, $alt, $post)
+    {
         $this->post = $post;
         $this->url = $url;
         $this->alt = $alt;
@@ -20,7 +23,8 @@ class ImageUploader {
      * @param bool $scheme
      * @return null|string
      */
-    public static function getHostUrl($url = null, $scheme = false) {
+    public static function getHostUrl($url = null, $scheme = false)
+    {
         $url = $url ?: site_url();
 
         $urlParts = parse_url($url);
@@ -41,7 +45,8 @@ class ImageUploader {
      * Check url is allowed to upload or not
      * @return bool
      */
-    public function validate() {
+    public function validate()
+    {
         $host_url = self::getHostUrl($this->url);
         $site_host_url = self::getHostUrl();
 
@@ -56,7 +61,8 @@ class ImageUploader {
      * Return custom image name with user rules
      * @return string Custom file name
      */
-    public function getFilename() {
+    public function getFilename()
+    {
         $filename = basename($this->url);
         $this->filename = $filename;
         return $filename;
@@ -67,8 +73,9 @@ class ImageUploader {
      * Add image to the media library and attach in the post
      * @return bool
      */
-    public function save() {
-        require_once( ABSPATH . 'wp-admin/includes/image.php' );
+    public function save()
+    {
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
         if (function_exists('curl_init') === false) return false;
 
         setlocale(LC_ALL, "en_US.UTF8");
@@ -95,22 +102,18 @@ class ImageUploader {
         // check if file with same name exists in upload path
         if (is_file($image_path)) {
             $this->url = $image_url;
-            curl_close($ch);
-            return true;
+            // If the image already exists, get the id to link it to the post
+            $attachment_id = attachment_url_to_postid($image_url);
+            if ($attachment_id) {
+                $this->attachment_id = $attachment_id;
+                curl_close($ch);
+                return true;
+            } else {
+                $num = uniqid();
+                $image_path = urldecode($upload_dir['path'] . '/' . $num . '_' . $image_name);
+                $image_url = urldecode($upload_dir['url'] . '/' . $num . '_' . $image_name);
+            }
         }
-        // check if file with same name exists in upload path, rename file
-//        while (is_file($image_path)) {
-//            // Check for duplicate file
-//            if (base64_encode($image_data) === base64_encode(file_get_contents($image_path))) {
-//                $this->url = $image_url;
-//                curl_close($ch);
-//                return true;
-//            } else {
-//                $num = uniqid();
-//                $image_path = urldecode($upload_dir['path'] . '/' . $num . '_' . $image_name);
-//                $image_url = urldecode($upload_dir['url'] . '/' . $num . '_' . $image_name);
-//            }
-//        }
 
         curl_close($ch);
         file_put_contents($image_path, $image_data);
@@ -119,7 +122,7 @@ class ImageUploader {
             return false;
         }
 
-        $this->attachImage($image_path, $image_url, $image_name);
+        $this->attachment_id = $this->attachImage($image_path, $image_url, $image_name);
 
         $this->url = $image_url;
         return true;
@@ -132,7 +135,8 @@ class ImageUploader {
      * @param string $name Image name
      * @return int $attach_id
      */
-    public function attachImage($path, $url, $name) {
+    public function attachImage($path, $url, $name)
+    {
         $fileType = wp_check_filetype($path);
         $attachment = array(
             'guid'           => $url,
