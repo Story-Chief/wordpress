@@ -3,9 +3,9 @@ Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content marketing calendar, social media scheduling, content marketing, schedule facebook posts, schedule to twitter, schedule posts to Linkedin, social media analytics
 Requires at least: 4.6
-Tested up to: 6.0
+Tested up to: 6.4
 Requires PHP: 5.4
-Stable tag: 1.0.37
+Stable tag: 1.0.38
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,6 +98,9 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 10.  Measure Quality
 
 == Changelog ==
+
+= 1.0.38 =
+* Improvement: Tested up to WordPress 6.4
 
 = 1.0.37 =
 * Feature: Allow publishing to a page.
