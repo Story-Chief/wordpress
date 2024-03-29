@@ -51,7 +51,7 @@ function isAnySeoPluginActive() {
  * @return bool
  */
 function isOpenGraphHandled() {
-    return (isYoastPluginActive() || isSeopressPluginActive());
+    return (isYoastPluginActive() || isSeopressPluginActive() || isRankMathPluginActive());
 }
 
 /**
