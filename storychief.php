@@ -4,11 +4,14 @@
  * Plugin Name: StoryChief
  * Plugin URI: http://storychief.io/wordpress
  * Description: Publish your blog posts from StoryChief to WordPress.
- * Version: 1.0.38
+ * Version: 1.0.39
+ * Requires at least: 5.2
+ * Requires PHP: 7.0
  * Author: StoryChief
  * Text Domain: storychief
  * Author URI: http://storychief.io
- * License: GPL2
+ * License: GPLv3 or later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 namespace Storychief;
@@ -19,7 +22,7 @@ if (!function_exists('add_action')) {
 	exit;
 }
 
-define('STORYCHIEF_VERSION', '1.0.38');
+define('STORYCHIEF_VERSION', '1.0.39');
 if (!defined('STORYCHIEF_DIR')) {
 	define('STORYCHIEF_DIR', __DIR__);
 }

@@ -5,6 +5,8 @@ namespace Storychief\Webhook;
 use WP_REST_Request;
 use WP_Error;
 
+use function Storychief\Settings\get_sc_option;
+
 function disable_cron() {
     if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/wp-json/storychief/') !== false) {
         if ( ! defined( 'DISABLE_WP_CRON' ) ) {
@@ -84,12 +86,17 @@ function handlePublish($payload) {
     $story = $payload['data'];
 
     // Before publish action
-    do_action('storychief_before_publish_action', array_merge($story));
+    do_action('storychief_before_publish_action', array_merge([], $story));
 
-    $is_draft = (bool)\Storychief\Settings\get_sc_option('test_mode');
-    $is_draft = apply_filters('storychief_is_draft_status', $is_draft, $story);
+    $is_test_mode = (bool) get_sc_option('test_mode');
+    $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
 
-    $post_type = \Storychief\Settings\get_sc_option('post_type') ? \Storychief\Settings\get_sc_option('post_type') : 'post';
+    if (isset($story['status']) && $story['status'] === 'draft') {
+        $is_draft = true;
+    }
+
+    $status = $is_draft ? 'draft' : 'publish';
+    $post_type = get_sc_option('post_type') ? get_sc_option('post_type') : 'post';
     $post_type = apply_filters('storychief_change_post_type', $post_type, $story);
 
     $content = format_shortcodes($story['content']);
@@ -100,7 +107,7 @@ function handlePublish($payload) {
         'post_title'   => $story['title'],
         'post_content' => $content,
         'post_excerpt' => $story['excerpt'] ? $story['excerpt'] : '',
-        'post_status'  => $is_draft ? 'draft' : 'publish',
+        'post_status'  => $status,
         'post_author'  => null,
         'meta_input'   => array(),
     );
@@ -147,15 +154,16 @@ function handlePublish($payload) {
     $permalink = apply_filters( 'storychief_publish_permalink', \Storychief\Tools\getPermalink($post_ID), $post_ID );
 
     return array(
-        'id'        => $post_ID,
+        'id' => $post_ID,
         'permalink' => $permalink,
+        'status' => $status === 'draft' ? 'draft' : 'published',
     );
 }
 
 /**
  * Handle a update webhook call
  *
- * @param $payload
+ * @param array $payload
  * @return array|WP_Error
  */
 function handleUpdate($payload) {
@@ -166,11 +174,16 @@ function handleUpdate($payload) {
     }
 
     // Before publish action
-    do_action('storychief_before_publish_action', array_merge($story));
+    do_action('storychief_before_publish_action', array_merge([], $story));
 
-    $is_test_mode = (bool)\Storychief\Settings\get_sc_option('test_mode');
+    $is_test_mode = (bool) get_sc_option('test_mode');
     $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
 
+    if (isset($story['status']) && $story['status'] === 'draft') {
+        $is_draft = true;
+    }
+
+    $status = $is_draft ? 'draft' : 'publish';
     $content = format_shortcodes($story['content']);
     $content = decode_gutenberg_blocks_html_entities($content);
 
@@ -179,7 +192,7 @@ function handleUpdate($payload) {
         'post_title'   => $story['title'],
         'post_content' => $content,
         'post_excerpt' => $story['excerpt'] ? $story['excerpt'] : '',
-        'post_status'  => $is_draft ? 'draft' : 'publish',
+        'post_status'  => $status,
         'meta_input'   => array(),
     );
 
@@ -225,8 +238,9 @@ function handleUpdate($payload) {
     $permalink = apply_filters( 'storychief_publish_permalink', \Storychief\Tools\getPermalink($post_ID), $post_ID );
 
     return array(
-        'id'        => $post_ID,
+        'id' => $post_ID,
         'permalink' => $permalink,
+        'status' => $status === 'draft' ? 'draft' : 'published',
     );
 }
 
@@ -250,8 +264,9 @@ function handleDelete($payload) {
 }
 
 /**
- * Handle a connection test webhook call
- * @param $payload
+ * Handle a connection test webhook call.
+ *
+ * @param array $payload
  * @return array
  */
 function handleConnectionCheck($payload) {
@@ -259,7 +274,55 @@ function handleConnectionCheck($payload) {
 
     do_action('storychief_after_test_action', $story);
 
-    return array();
+    // For debugging purposes
+    return [
+        'meta' => [
+            'plugin_version' => STORYCHIEF_VERSION,
+            'cms_type' => 'wordpress',
+            'cms_version' => get_bloginfo('version'),
+            'features' => [
+                'publish_as_draft',
+            ],
+            'settings' => [
+                [
+                    'key' => 'test_mode',
+                    'title' => 'Testing mode',
+                    'description' => 'Keep your articles as draft.',
+                    'value' => (bool) get_sc_option('test_mode'),
+                ],
+                [
+                    'key' => 'debug_mode',
+                    'title' => 'Debug mode',
+                    'description' => 'Errors are being logged.',
+                    'value' => (bool) get_sc_option('test_mode'),
+                ],
+                [
+                    'key' => 'author_create',
+                    'title' => 'Create unknown authors	',
+                    'description' => 'Automatically create new authors ',
+                    'value' => (bool) get_sc_option('author_create'),
+                ],
+                [
+                    'key' => 'category_create',
+                    'title' => 'Create unknown categories',
+                    'description' => 'Automatically create new categories.',
+                    'value' => (bool) get_sc_option('category_create'),
+                ],
+                [
+                    'key' => 'tag_create',
+                    'title' => 'Create unknown tags',
+                    'description' => 'Automatically create new tags.',
+                    'value' => (bool) get_sc_option('tag_create'),
+                ],
+                [
+                    'key' => 'sideload_images',
+                    'title' => 'Side-load images',
+                    'description' => 'All images inside an article will be downloaded.',
+                    'value' => (bool) get_sc_option('sideload_images'),
+                ],
+            ]
+        ]
+    ];
 }
 
 
@@ -341,7 +404,7 @@ function storychief_debug_mode()
     // that get prepended or appended to the rest response.
     ini_set('display_errors', 0);
 
-    $is_debug = (bool)\Storychief\Settings\get_sc_option('debug_mode');
+    $is_debug = (bool) get_sc_option('debug_mode');
 
     if ($is_debug) {
         // Turn on error reporting.

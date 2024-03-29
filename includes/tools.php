@@ -51,7 +51,7 @@ function isAnySeoPluginActive() {
  * @return bool
  */
 function isOpenGraphHandled() {
-    return (isYoastPluginActive() || isSeopressPluginActive() || isRankMathPluginActive());
+    return (isYoastPluginActive() || isSeopressPluginActive());
 }
 
 /**
@@ -91,7 +91,7 @@ function validMac($payload) {
  */
 function getPermalink($post_ID) {
     if(get_post_status($post_ID) !== 'publish'){
-        return null;
+        return get_preview_post_link($post_ID);
     }
 
     return get_permalink($post_ID);
