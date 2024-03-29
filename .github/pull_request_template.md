@@ -13,8 +13,8 @@ What are you changing? Why is this change being made? What problem is it solving
 
 Please include step by step instructions on how to test the PR.
 
-1. Which webhook endpoint
-2. Example of payload
+1. Which webhook endpoint (https://developers.storychief.io/)
+2. Example of payload 
 3. etc.
 
 ## Screenshots
