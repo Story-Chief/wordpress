@@ -81,6 +81,8 @@ function handle(WP_REST_Request $request) {
  *
  * @param $payload
  * @return array
+ *
+ * @link https://developers.storychief.io/#fb73b0fc-39f6-4c2e-b231-6687a2646287
  */
 function handlePublish($payload) {
     $story = $payload['data'];
@@ -89,11 +91,13 @@ function handlePublish($payload) {
     do_action('storychief_before_publish_action', array_merge([], $story));
 
     $is_test_mode = (bool) get_sc_option('test_mode');
-    $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
+    $is_draft = $is_test_mode;
 
-    if (isset($story['status']) && $story['status'] === 'draft') {
+    if (!$is_test_mode && isset($story['status']) && $story['status'] === 'draft') {
         $is_draft = true;
     }
+
+    $is_draft = apply_filters('storychief_is_draft_status', $is_draft, $story);
 
     $status = $is_draft ? 'draft' : 'publish';
     $post_type = get_sc_option('post_type') ? get_sc_option('post_type') : 'post';
@@ -156,7 +160,7 @@ function handlePublish($payload) {
     return array(
         'id' => $post_ID,
         'permalink' => $permalink,
-        'status' => $status === 'draft' ? 'draft' : 'published',
+        'status' => $is_draft ? 'draft' : 'published',
     );
 }
 
@@ -165,6 +169,8 @@ function handlePublish($payload) {
  *
  * @param array $payload
  * @return array|WP_Error
+ *
+ * @link https://developers.storychief.io/#ef1fe8bf-6efe-41df-aa7c-f931c128ef61
  */
 function handleUpdate($payload) {
     $story = $payload['data'];
@@ -177,11 +183,13 @@ function handleUpdate($payload) {
     do_action('storychief_before_publish_action', array_merge([], $story));
 
     $is_test_mode = (bool) get_sc_option('test_mode');
-    $is_draft = apply_filters('storychief_is_draft_status', $is_test_mode, $story);
+    $is_draft = $is_test_mode;
 
-    if (isset($story['status']) && $story['status'] === 'draft') {
+    if (!$is_test_mode && isset($story['status']) && $story['status'] === 'draft') {
         $is_draft = true;
     }
+
+    $is_draft = apply_filters('storychief_is_draft_status', $is_draft, $story);
 
     $status = $is_draft ? 'draft' : 'publish';
     $content = format_shortcodes($story['content']);
@@ -240,7 +248,7 @@ function handleUpdate($payload) {
     return array(
         'id' => $post_ID,
         'permalink' => $permalink,
-        'status' => $status === 'draft' ? 'draft' : 'published',
+        'status' => $is_draft ? 'draft' : 'published',
     );
 }
 
