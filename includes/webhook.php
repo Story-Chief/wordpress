@@ -286,8 +286,20 @@ function handleConnectionCheck($payload) {
     return [
         'meta' => [
             'plugin_version' => STORYCHIEF_VERSION,
-            'cms_type' => 'wordpress',
-            'cms_version' => get_bloginfo('version'),
+            'versioning' => [
+                [
+                    'type' => 'php_version',
+                    'value' => phpversion(),
+                ],
+                [
+                    'type' => 'cms_type',
+                    'value' => 'wordpress',
+                ],
+                [
+                    'type' => 'cms_version',
+                    'value' => get_bloginfo('version'),
+                ],
+            ],
             'features' => [
                 'publish_as_draft',
             ],
@@ -328,11 +340,10 @@ function handleConnectionCheck($payload) {
                     'description' => 'All images inside an article will be downloaded.',
                     'value' => (bool) get_sc_option('sideload_images'),
                 ],
-            ]
-        ]
+            ],
+        ],
     ];
 }
-
 
 /**
  * Handle calls to missing methods on the controller.
