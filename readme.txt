@@ -1,9 +1,9 @@
 === StoryChief ===
 Contributors: StoryChief
 Donate link: https://storychief.io
-Tags: Content marketing calendar, social media scheduling, content marketing, schedule facebook posts, schedule to twitter, schedule posts to Linkedin, social media analytics
+Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
 Stable tag: 1.0.39
 License: GPLv3 or later
@@ -13,43 +13,31 @@ All-in-one Content Marketing Workspace
 
 == Description ==
 
-Use StoryChief for collaboration on SEO blogposts, social posts and one-click multichannel distribution.
+Collaborate, publish, and measure content marketing success - all from one central platform
 
-https://www.youtube.com/watch?v=cMYm0u07m9E
+https://www.youtube.com/watch?v=Vxlvf_xZML0
 
-##### [Sign up for free](https://app.storychief.io/register)
+StoryChief empowers marketers and agencies with seamless content collaboration, creation, distribution, and delivers comprehensive reporting and analytics for your content marketing endeavors.
 
-=== Publish Better Content ===
+StoryChief elevates content quality, streamlines processes, extends your reach, and improves lead generation with direct publishing to your CMS, social media platforms, DAM, and CRM systems.
 
-Gain better collaboration, create more interactive and beautiful content with StoryChief and go Multi-Channel without any hurdles or technical requirements.
+Distribute content across all marketing channels with one click, customize campaigns for each platform, and mobilize employees for content promotion.
 
-This plugin:
+Accelerate editing processes with approval flows, revisions, and collaborative comments, fostering efficient content production and teamwork.
 
-*   Publishes articles straight from StoryChief
-*   Keeps your formatting like header tags, bold, links, lists etc
-*   Does not alter your website's branding, by using your site's CSS for styling
-*   Imports text and images from your StoryChief story
-*   Supports multi-site
-*   Supports SEO plugins natively: Yoast, SeoPress, All In One Seo Pack, RankMath
-*   Supports custom fields with ACF through an extensions plugin
-*   Supports multi-language with Polylang and WPML through an extensions plugin
-*   Supports Divi theme and Builder
+Leverage SEO copywriting and keyword generator tools to optimize content for search engines, ensuring higher rankings and increased traffic.
 
-=== How It Works ===
-
-1.  Register on [StoryChief](https://app.storychief.io/register)
-2.  Add a WordPress channel
-3.  Install and activate the plugin
-4.  Configure the plugin by saving your encryption key
-5.  Publish from StoryChief to your WordPress website
+Get real-time data insights to identify top-performing content types, fine-tune your content strategy, find new content ideas, and fill your content calendar with content that performs.
 
 
-=== Requirements ===
+=== Features ===
 
-* This plugin requires a [StoryChief](https://storychief.io) account.
-	* Not a StoryChief user yet? [Sign up for free!](https://app.storychief.io/register)
-* PHP version 7.0 or higher
-* WordPress version 5.2 or higher
+*   Centralize team alignment with a unified content marketing calendar.
+*   Streamline content distribution with automatic scheduling across CMS and social media platforms, preserving formatting details like header tags, bold, links, and lists.
+*   Boost Google ranking with built-in SEO copywriting assistance, SEO audit tools, and a Keyword Generator.
+*   Accelerate content creation with strategic AI prompts, featuring brand voice recognition and an AI-driven strategy wizard.
+*   Foster collaborative workflows with approval flows, all while maintaining security by limiting access to your CMS admin panel.
+*   Gain actionable insights through intuitive dashboards and seamless integration with Google Search Console.
 
 === Actions and filters ===
 
@@ -74,10 +62,19 @@ Filters:
 
 == Installation ==
 
+https://www.youtube.com/watch?v=PC7kZSc4e0g
+
 1.  Upload the plugin files to the `/wp-content/plugins/plugin-name` directory, or install the plugin through the WordPress plugins screen directly.
 2.  Activate the plugin through the 'Plugins' screen in WordPress
 3.  Use the Settings -> StoryChief screen to configure the plugin
 4.  Copy over your encryption key from StoryChief
+
+=== Requirements ===
+
+* This plugin requires a [StoryChief](https://storychief.io) account.
+	* Not a StoryChief user yet? [Sign up for free!](https://app.storychief.io/register)
+* PHP version 7.0 or higher
+* WordPress version 5.2 or higher
 
 == Frequently Asked Questions ==
 
@@ -87,16 +84,12 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 
 == Screenshots ==
 
-1.  Optimize your Blog Posts for SEO
-2.  Manage Social Media
-3.  Publish Anywhere
-4.  Content Calendar
-5.  Content Approval
-6.  Revive Blog Posts
-7.  Content Data Management
-8.  Trigger Colleagues to reshare
-9.  Measure performance
-10.  Measure Quality
+1.  Calendar
+2.  Leads
+3.  SEO
+4.  Collaboration
+5.  Insights
+6.  Ambassadors
 
 == Changelog ==
 
