@@ -5,7 +5,7 @@ Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.0.39
+Stable tag: 1.0.40
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,6 +92,9 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.40 =
+* Updated readme
 
 = 1.0.39 =
 * Added: Connection check now returns meta-data; detect the feature to publish an article as draft
