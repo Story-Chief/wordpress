@@ -204,51 +204,59 @@ function handleUpdate($payload)
     $is_draft = apply_filters('storychief_is_draft_status', $is_draft, $story);
 
     $status = $is_draft ? 'draft' : 'publish';
-    $content = format_shortcodes($story['content']);
-    $content = decode_gutenberg_blocks_html_entities($content);
 
-    $post = [
-        'ID' => $story['external_id'],
-        'post_title' => $story['title'],
-        'post_content' => $content,
-        'post_excerpt' => $story['excerpt'] ? $story['excerpt'] : '',
-        'post_status' => $status,
-        'meta_input' => [],
-    ];
+    if (isset($meta['lock_updates']) && $meta['lock_updates'] === true) {
+        safely_upsert_story([
+            'ID' => $story['external_id'],
+            'post_status' => $status,
+        ]);
+    } else {
+        $content = format_shortcodes($story['content']);
+        $content = decode_gutenberg_blocks_html_entities($content);
 
-    // Set the slug
-    if (isset($story['seo_slug']) && ! empty($story['seo_slug'])) {
-        $post['post_name'] = $story['seo_slug'];
+        $post = [
+            'ID' => $story['external_id'],
+            'post_title' => $story['title'],
+            'post_content' => $content,
+            'post_excerpt' => $story['excerpt'] ? $story['excerpt'] : '',
+            'post_status' => $status,
+            'meta_input' => [],
+        ];
+
+        // Set the slug
+        if (isset($story['seo_slug']) && !empty($story['seo_slug'])) {
+            $post['post_name'] = $story['seo_slug'];
+        }
+
+        if (isset($story['amphtml'])) {
+            $post['meta_input']['_amphtml'] = $story['amphtml'];
+        }
+
+        $post_ID = safely_upsert_story($post);
+
+        $story = array_merge($story, ['external_id' => $post_ID]);
+
+        // Author
+        do_action('storychief_save_author_action', $story);
+
+        // Tags
+        do_action('storychief_save_tags_action', $story);
+
+        // Categories
+        do_action('storychief_save_categories_action', $story);
+
+        // Featured Image
+        do_action('storychief_save_featured_image_action', $story);
+
+        // SEO
+        do_action('storychief_save_seo_action', $story);
+
+        // Sideload images
+        do_action('storychief_sideload_images_action', $post_ID);
+
+        // After publish action
+        do_action('storychief_after_publish_action', $story);
     }
-
-    if (isset($story['amphtml'])) {
-        $post['meta_input']['_amphtml'] = $story['amphtml'];
-    }
-
-    $post_ID = safely_upsert_story($post);
-
-    $story = array_merge($story, ['external_id' => $post_ID]);
-
-    // Author
-    do_action('storychief_save_author_action', $story);
-
-    // Tags
-    do_action('storychief_save_tags_action', $story);
-
-    // Categories
-    do_action('storychief_save_categories_action', $story);
-
-    // Featured Image
-    do_action('storychief_save_featured_image_action', $story);
-
-    // SEO
-    do_action('storychief_save_seo_action', $story);
-
-    // Sideload images
-    do_action('storychief_sideload_images_action', $post_ID);
-
-    // After publish action
-    do_action('storychief_after_publish_action', $story);
 
     // generic WP cache flush scoped to a post ID.
     // well behaved caching plugins listen for this action.
@@ -315,6 +323,7 @@ function handleConnectionCheck($payload)
             ],
             'features' => [
                 'publish_as_draft',
+                'lock_updates',
             ],
             'settings' => [
                 [

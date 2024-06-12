@@ -5,7 +5,7 @@ Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.0.40
+Stable tag: 1.0.41
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,6 +92,9 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.41 =
+* Add support to lock updates to content, only update status to published
 
 = 1.0.40 =
 * Updated readme
