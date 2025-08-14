@@ -266,7 +266,7 @@ function sideloadImages(\WP_Post $post)
     foreach ($images as $image) {
         $uploader = new ImageUploader($image['url'], $image['alt'], $post);
         if ($uploader->validate() && $uploader->save() !== false) {
-            $urlParts = parse_url($uploader->url);
+            $urlParts = wp_parse_url($uploader->url);
             $base_url = $uploader::getHostUrl(null, true);
             $image_url = $base_url . $urlParts['path'];
             $content = preg_replace('/' . preg_quote($image['url'], '/') . '/', $image_url, $content);

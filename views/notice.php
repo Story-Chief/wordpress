@@ -7,40 +7,29 @@
                 printf( esc_html__('StoryChief %s requires WP Rest API 2.0 or higher.', 'story-chief'), esc_html(STORYCHIEF_VERSION));
                 ?>
             </strong>
-            <?php
-            /* translators: Plugin url */
-            printf(__('Please <a href="%1$s">install WordPress REST API</a>.', 'story-chief'), esc_url('https://wordpress.org/plugins/rest-api/'));
-            ?>
+            <?php printf(esc_html__('Please install WordPress REST API.', 'story-chief')); ?>
+            <a href="https://wordpress.org/plugins/rest-api/"><?php printf(esc_html__('Download', 'story-chief')); ?></a>
         </p>
     </div>
 <?php elseif ( $type == 'wpml-plugin' ) :?>
     <div id="storychief-warning" class="notice notice-info is-dismissible">
         <p>
             <strong><?php printf( esc_html__('There is an extension available for WPML', 'story-chief'));?></strong>
-            <?php
-            /* translators: Plugin url */
-            printf(__('Download it <a href="%1$s">here</a>.', 'story-chief'), esc_url('https://wordpress.org/plugins/story-chief-wpml/'));
-            ?>
+            <a href="https://wordpress.org/plugins/story-chief-wpml/"><?php printf(esc_html__('Download', 'story-chief')); ?></a>
         </p>
     </div>
 <?php elseif ( $type == 'polylang-plugin' ) :?>
     <div id="storychief-warning" class="notice notice-info is-dismissible">
         <p>
             <strong><?php printf( esc_html__('There is an extension available for Polylang', 'story-chief'));?></strong>
-            <?php
-            /* translators: Plugin url */
-            printf(__('Download it <a href="%1$s">here</a>.', 'story-chief'), esc_url('https://wordpress.org/plugins/story-chief-polylang/'));
-            ?>
+            <a href="https://wordpress.org/plugins/story-chief-polylang/"><?php printf(esc_html__('Download', 'story-chief')); ?></a>
         </p>
     </div>
 <?php elseif ( $type == 'acf-plugin' ) :?>
     <div id="storychief-warning" class="notice notice-info is-dismissible">
         <p>
             <strong><?php printf( esc_html__('There is an extension available for ACF', 'story-chief'));?></strong>
-            <?php
-            /* translators: Plugin url */
-            printf(__('Download it <a href="%1$s">here</a>.', 'story-chief'), esc_url('https://wordpress.org/plugins/storychief-acf/'));
-            ?>
+            <a href="https://wordpress.org/plugins/storychief-acf/"><?php printf(esc_html__('Download', 'story-chief')); ?></a>
         </p>
     </div>
 <?php elseif ( $type == 'version' ) :?>
@@ -52,10 +41,7 @@
                 printf( esc_html__('StoryChief %s requires WordPress 4.6 or higher.', 'story-chief'), esc_html(STORYCHIEF_VERSION));
                 ?>
             </strong>
-            <?php
-            /* translators: url to WordPress docs */
-            printf(__('Please <a href="%1$s">upgrade WordPress</a> to a current version.', 'story-chief'), esc_url('http://codex.wordpress.org/Upgrading_WordPress'));
-            ?>
+            <a href="http://codex.wordpress.org/Upgrading_WordPress"><?php printf(esc_html__('Upgrade', 'story-chief')); ?></a>
         </p>
     </div>
 <?php elseif( $type == 'config-set') : ?>
