@@ -7,7 +7,7 @@ namespace Storychief\Formatting;
  * Needed for activation of FB Instant Articles.
  */
 function meta_instant_articles() {
-    echo '<meta property="fb:pages" content="' . \Storychief\Settings\get_sc_option('meta_fb_pages') . '" />' . PHP_EOL;
+    echo '<meta property="fb:pages" content="' . esc_html(\Storychief\Settings\get_sc_option('meta_fb_pages')) . '" />' . PHP_EOL;
 }
 add_action('wp_head', __NAMESPACE__ . '\meta_instant_articles');
 
@@ -21,7 +21,7 @@ function meta_amp() {
     if (!empty($post) && is_singular()) {
         $ampHtmlLink = get_post_meta($post->ID, '_amphtml', true);
         if (!empty($ampHtmlLink)) {
-            echo '<link rel="amphtml" href="' . $ampHtmlLink . '" />' . PHP_EOL;
+            echo '<link rel="amphtml" href="' . esc_url($ampHtmlLink) . '" />' . PHP_EOL;
         }
     }
 }
@@ -50,7 +50,7 @@ function meta_description() {
     if (!\Storychief\Tools\isAnySeoPluginActive() && !empty($post) && is_singular()) {
         $seoDescription = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
         if (!empty($seoDescription)) {
-            echo '<meta name="description" content="' . $seoDescription . '" />' . PHP_EOL;
+            echo '<meta name="description" content="' . esc_html($seoDescription) . '" />' . PHP_EOL;
         }
     }
 }
@@ -65,7 +65,7 @@ function meta_canonical() {
     if (!\Storychief\Tools\isAnySeoPluginActive() && !empty($post) && is_singular()) {
         $canonicalUrl = get_post_meta($post->ID, '_yoast_wpseo_canonical', true);
         if (!empty($canonicalUrl)) {
-            echo '<link rel="canonical" href="' . $canonicalUrl . '" />' . PHP_EOL;
+            echo '<link rel="canonical" href="' . esc_html($canonicalUrl) . '" />' . PHP_EOL;
         }
     }
 }
@@ -84,22 +84,22 @@ function open_graph_tags() {
         echo '<meta name="twitter:card" content="summary">' . PHP_EOL;
 
         if (!empty($seoTitle)) {
-            echo '<meta property="og:title" content="'.$seoTitle.'">' . PHP_EOL;
-            echo '<meta property="twitter:title" content="'.$seoTitle.'">' . PHP_EOL;
+            echo '<meta property="og:title" content="'.esc_html($seoTitle).'">' . PHP_EOL;
+            echo '<meta property="twitter:title" content="'.esc_html($seoTitle).'">' . PHP_EOL;
         }
         if (!empty($seoDescription)) {
-            echo '<meta property="og:description" content="'.$seoDescription.'">' . PHP_EOL;
-            echo '<meta property="twitter:description" content="'.$seoDescription.'">' . PHP_EOL;
+            echo '<meta property="og:description" content="'.esc_html($seoDescription).'">' . PHP_EOL;
+            echo '<meta property="twitter:description" content="'.esc_html($seoDescription).'">' . PHP_EOL;
         }
 
         if (has_post_thumbnail( $post->ID )) {
             $attachment_id = get_post_thumbnail_id($post->ID);
             $image_attributes = wp_get_attachment_image_src($attachment_id, 'full');
             if (is_array($image_attributes)) {
-                echo '<meta property="og:image" content="'.$image_attributes[0].'">' . PHP_EOL;
-                echo '<meta property="og:image:width" content="'.$image_attributes[1].'">' . PHP_EOL;
-                echo '<meta property="og:image:height" content="'.$image_attributes[2].'">' . PHP_EOL;
-                echo '<meta property="twitter:image" content="'.$image_attributes[0].'">' . PHP_EOL;
+                echo '<meta property="og:image" content="'.esc_url($image_attributes[0]).'">' . PHP_EOL;
+                echo '<meta property="og:image:width" content="'.esc_url($image_attributes[1]).'">' . PHP_EOL;
+                echo '<meta property="og:image:height" content="'.esc_url($image_attributes[2]).'">' . PHP_EOL;
+                echo '<meta property="twitter:image" content="'.esc_url($image_attributes[0]).'">' . PHP_EOL;
             }
         }
     }

@@ -29,7 +29,6 @@ class Admin {
 	}
 
 	public static function admin_init() {
-		load_plugin_textdomain('storychief');
 		if(class_exists('Polylang') && !class_exists('Storychief_PPL')){
 			self::notice_polylang_plugin_available();
 		}
@@ -59,36 +58,36 @@ class Admin {
 			$current_screen->add_help_tab(
 				array(
 					'id'      => 'overview',
-					'title'   => __('Overview', 'storychief'),
+					'title'   => __('Overview', 'story-chief'),
 					'content' =>
-						'<p><strong>' . esc_html__('StoryChief Configuration', 'storychief') . '</strong></p>' .
-						'<p>' . esc_html__('StoryChief publishes posts, so you can focus on more important things.', 'storychief') . '</p>' .
-						'<p>' . esc_html__('Save your given key here.', 'storychief') . '</p>',
+						'<p><strong>' . esc_html__('StoryChief Configuration', 'story-chief') . '</strong></p>' .
+						'<p>' . esc_html__('StoryChief publishes posts, so you can focus on more important things.', 'story-chief') . '</p>' .
+						'<p>' . esc_html__('Save your given key here.', 'story-chief') . '</p>',
 				)
 			);
 
 			$current_screen->add_help_tab(
 				array(
 					'id'      => 'settings',
-					'title'   => __('Settings', 'storychief'),
+					'title'   => __('Settings', 'story-chief'),
 					'content' =>
-						'<p><strong>' . esc_html__('StoryChief Configuration', 'storychief') . '</strong></p>' .
-						'<p><strong>' . esc_html__('Encryption Key', 'storychief') . '</strong> - ' . esc_html__('Enter your Encryption key.', 'storychief') . '</p>',
+						'<p><strong>' . esc_html__('StoryChief Configuration', 'story-chief') . '</strong></p>' .
+						'<p><strong>' . esc_html__('Encryption Key', 'story-chief') . '</strong> - ' . esc_html__('Enter your Encryption key.', 'story-chief') . '</p>',
 				)
 			);
 		}
 
 		// Help Sidebar
 		$current_screen->set_help_sidebar(
-			'<p><strong>' . esc_html__('For more information:', 'storychief') . '</strong></p>' .
-			'<p><a href="https://help.storychief.io/faq" target="_blank">' . esc_html__('StoryChief FAQ', 'storychief') . '</a></p>' .
-			'<p><a href="https://help.storychief.io" target="_blank">' . esc_html__('StoryChief Support', 'storychief') . '</a></p>'
+			'<p><strong>' . esc_html__('For more information:', 'story-chief') . '</strong></p>' .
+			'<p><a href="https://help.storychief.io/faq" target="_blank">' . esc_html__('StoryChief FAQ', 'story-chief') . '</a></p>' .
+			'<p><a href="https://help.storychief.io" target="_blank">' . esc_html__('StoryChief Support', 'story-chief') . '</a></p>'
 		);
 	}
 
 	public static function save_configuration() {
 		if (function_exists('current_user_can') && !current_user_can('manage_options')) {
-			die(__('Cheatin&#8217; uh?', 'storychief'));
+			die('Cheatin&#8217; uh?');
 		}
 		if (!wp_verify_nonce($_POST['_wpnonce'], self::NONCE)) {
 			return false;
@@ -130,7 +129,7 @@ class Admin {
 	}
 
 	public static function settings_link($links) {
-		$settings_link = '<a href="options-general.php?page=storychief">' . __('Settings') . '</a>';
+		$settings_link = '<a href="options-general.php?page=storychief">' . __('Settings', 'story-chief') . '</a>';
 		array_push($links, $settings_link);
 
 		return $links;
@@ -138,7 +137,7 @@ class Admin {
 
 	public static function plugin_action_links($links, $file) {
 		if ($file == plugin_basename(plugin_dir_url(__FILE__) . '/storychief.php')) {
-			$links[] = '<a href="' . esc_url(self::get_page_url()) . '">' . esc_html__('Settings', 'storychief') . '</a>';
+			$links[] = '<a href="' . esc_url(self::get_page_url()) . '">' . esc_html__('Settings', 'story-chief') . '</a>';
 		}
 
 		return $links;
@@ -178,7 +177,6 @@ class Admin {
             $$key = $val;
         }
 
-        load_plugin_textdomain('storychief');
         $file = STORYCHIEF_DIR . '/views/' . $name . '.php';
         include($file);
     }

@@ -21,17 +21,17 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
     <h1>StoryChief</h1>
 
     <p>
-        <?php esc_html_e('To set up StoryChief, enter you encryption key given to you by StoryChief.', 'storychief'); ?>
+        <?php esc_html_e('To set up StoryChief, enter you encryption key given to you by StoryChief.', 'story-chief'); ?>
     </p>
 
     <?php /*
     <h2 class="nav-tab-wrapper">
         <a href="?page=storychief" class="nav-tab <?php echo $active_tab === 'config' ? 'nav-tab-active' : '' ?>">
-            <?php esc_html_e('Configuration', 'storychief'); ?>
+            <?php esc_html_e('Configuration', 'story-chief'); ?>
         </a>
         <a href="?page=storychief&tab=styling"
            class="nav-tab <?php echo $active_tab === 'styling' ? 'nav-tab-active' : '' ?>">
-            <?php esc_html_e('Styling', 'storychief'); ?>
+            <?php esc_html_e('Styling', 'story-chief'); ?>
         </a>
     </h2>
     */ ?>
@@ -46,26 +46,26 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                 <tbody>
                 <tr>
                     <th scope="row">
-                        <label for="key"><?php esc_html_e('Enter your StoryChief Key', 'storychief'); ?></label>
+                        <label for="key"><?php esc_html_e('Enter your StoryChief Key', 'story-chief'); ?></label>
                     </th>
                     <td>
                         <input id="key" name="key" type="password" size="15" value="<?php echo esc_attr($encryption_key); ?>" class="regular-text">
                         <p class="description">
-                            <?php esc_html_e('Your encryption key is given when you add a WordPress destination on StoryChief', 'storychief'); ?>
+                            <?php esc_html_e('Your encryption key is given when you add a WordPress destination on StoryChief', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="key"><?php esc_html_e('Your WordPress url', 'storychief'); ?></label></th>
+                        <label for="key"><?php esc_html_e('Your WordPress url', 'story-chief'); ?></label></th>
                     <td>
                         <input type="text" size="15" value="<?php echo esc_attr($wp_url); ?>" class="regular-text" readonly>
-                        <p class="description"><?php esc_html_e('Save this in your StoryChief Configuration', 'storychief'); ?></p>
+                        <p class="description"><?php esc_html_e('Save this in your StoryChief Configuration', 'story-chief'); ?></p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="sc_post_type"><?php esc_html_e('Select the post type', 'storychief'); ?></label>
+                        <label for="sc_post_type"><?php esc_html_e('Select the post type', 'story-chief'); ?></label>
                     </th>
                     <td>
                         <select name="sc_post_type">
@@ -79,77 +79,77 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="test_mode"><?php esc_html_e('Testing mode', 'storychief'); ?></label>
+                        <label for="test_mode"><?php esc_html_e('Testing mode', 'story-chief'); ?></label>
                     </th>
                     <td>
                         <input type="checkbox" name="test_mode" value="1" <?php echo ($test_mode == 1) ? 'checked' : '' ?>> Enable test mode<br>
                         <p class="description">
-                            <?php esc_html_e('Keep your articles as draft. This means you won\'t be able to publish multichannel as long as it\'s on', 'storychief'); ?>
+                            <?php esc_html_e('Keep your articles as draft. This means you won\'t be able to publish multichannel as long as it\'s on', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="debug_mode"><?php esc_html_e('Debug mode', 'storychief'); ?></label>
+                        <label for="debug_mode"><?php esc_html_e('Debug mode', 'story-chief'); ?></label>
                     </th>
                     <td>
                         <input type="checkbox" name="debug_mode" value="1" <?php echo ($debug_mode == 1) ? 'checked' : '' ?>> Enable debug mode<br>
                         <p class="description">
-                            <?php esc_html_e('Logs any error in the file "/wp-content/plugins/story-chief/error.log". Use it for debugging or sharing with StoryChief support', 'storychief'); ?>
+                            <?php esc_html_e('Logs any error in the file "/wp-content/plugins/story-chief/error.log". Use it for debugging or sharing with StoryChief support', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="author_create"><?php esc_html_e('Create unknown authors', 'storychief'); ?></label>
+                        <label for="author_create"><?php esc_html_e('Create unknown authors', 'story-chief'); ?></label>
                     </th>
                     <td>
                         <input type="checkbox" name="author_create" value="1" <?php echo ($author_create == 1) ? 'checked' : '' ?>>
                         Enable creation of unknown authors<br>
                         <p class="description">
-                            <?php esc_html_e('This option allows you to automatically create new authors in WordPress when needed.', 'storychief'); ?>
+                            <?php esc_html_e('This option allows you to automatically create new authors in WordPress when needed.', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
                         <label for="category_create">
-                            <?php esc_html_e('Create unknown categories', 'storychief'); ?>
+                            <?php esc_html_e('Create unknown categories', 'story-chief'); ?>
                         </label>
                     </th>
                     <td>
                         <input type="checkbox" name="category_create" value="1" <?php echo ($category_create == 1) ? 'checked' : '' ?>>
                         Enable creation of unknown categories<br>
                         <p class="description">
-                            <?php esc_html_e('This option allows you to automatically create new categories in WordPress when needed.', 'storychief'); ?>
+                            <?php esc_html_e('This option allows you to automatically create new categories in WordPress when needed.', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
                         <label for="tag_create">
-                            <?php esc_html_e('Create unknown tags', 'storychief'); ?>
+                            <?php esc_html_e('Create unknown tags', 'story-chief'); ?>
                         </label>
                     </th>
                     <td>
                         <input type="checkbox" name="tag_create" value="1" <?php echo ($tag_create == 1) ? 'checked' : '' ?>>
                         Enable creation of unknown tags<br>
                         <p class="description">
-                            <?php esc_html_e('This option allows you to automatically create new tags in WordPress when needed.', 'storychief'); ?>
+                            <?php esc_html_e('This option allows you to automatically create new tags in WordPress when needed.', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
                         <label for="sideload_images">
-                            <?php esc_html_e('Side-load images', 'storychief'); ?>
+                            <?php esc_html_e('Side-load images', 'story-chief'); ?>
                         </label>
                     </th>
                     <td>
                         <input type="checkbox" name="sideload_images" value="1" <?php echo ($sideload_images == 1) ? 'checked' : '' ?>>
                         Enable side-loading of images<br>
                         <p class="description">
-                            <?php esc_html_e('All images inside an article will be downloaded to your WordPress installation.', 'storychief'); ?>
+                            <?php esc_html_e('All images inside an article will be downloaded to your WordPress installation.', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
@@ -165,7 +165,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                     <tbody>
                     <tr>
                         <th scope="row">
-                            <label for="divi_page_layout"><?php esc_html_e('Page Layout', 'storychief'); ?></label>
+                            <label for="divi_page_layout"><?php esc_html_e('Page Layout', 'story-chief'); ?></label>
                         </th>
                         <td>
                             <?php $page_layout = \Storychief\Settings\get_sc_option('divi_page_layout'); ?>
@@ -188,7 +188,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                     <tr>
                         <th scope="row">
                             <label for="divi_hide_nav"><?php esc_html_e('Hide Nav Before Scroll',
-                                                                        'storychief'); ?></label>
+                                                                        'story-chief'); ?></label>
                         </th>
                         <td>
                             <?php $hide_nav = \Storychief\Settings\get_sc_option('divi_hide_navigation'); ?>
@@ -215,7 +215,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                     <tr>
                         <th scope="row">
                             <label for="divi_dot_navigation"><?php esc_html_e('Dot Navigation',
-                                                                              'storychief'); ?></label>
+                                                                              'story-chief'); ?></label>
                         </th>
                         <td>
                             <?php $dot_nav = \Storychief\Settings\get_sc_option('divi_dot_navigation'); ?>
@@ -227,7 +227,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                     </tr>
                     <tr>
                         <th scope="row">
-                            <label for="divi_show_title"><?php esc_html_e('Post Title', 'storychief'); ?></label>
+                            <label for="divi_show_title"><?php esc_html_e('Post Title', 'story-chief'); ?></label>
                         </th>
                         <td>
                             <?php $show_title = \Storychief\Settings\get_sc_option('divi_show_title'); ?>
@@ -250,7 +250,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                 <tr>
                     <th scope="row">
                         <label for="styling_align">
-                            <?php esc_html_e('Media align', 'storychief'); ?>
+                            <?php esc_html_e('Media align', 'story-chief'); ?>
                         </label>
                     </th>
                     <td>
@@ -260,14 +260,14 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                         /> Align media left or right. <br />
                         <p class="description">
                             <?php esc_html_e('Adds default styles for aligning media (images, video\'s etc) left or right',
-                                             'storychief'); ?>
+                                             'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
                         <label for="styling_align">
-                            <?php esc_html_e('Captions', 'storychief'); ?>
+                            <?php esc_html_e('Captions', 'story-chief'); ?>
                         </label>
                     </th>
                     <td>
@@ -276,14 +276,14 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                                value="1" <?php echo ($styling_caption == 1) ? 'checked' : '' ?>
                         /> Media captions. <br />
                         <p class="description">
-                            <?php esc_html_e('Adds default styles for captions', 'storychief'); ?>
+                            <?php esc_html_e('Adds default styles for captions', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
                         <label for="styling_video">
-                            <?php esc_html_e('Video\'s', 'storychief'); ?>
+                            <?php esc_html_e('Video\'s', 'story-chief'); ?>
                         </label>
                     </th>
                     <td>
@@ -292,7 +292,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
                                value="1" <?php echo ($styling_video == 1) ? 'checked' : '' ?>
                         /> Video blocks. <br />
                         <p class="description">
-                            <?php esc_html_e('Adds default styles for video\'s', 'storychief'); ?>
+                            <?php esc_html_e('Adds default styles for video\'s', 'story-chief'); ?>
                         </p>
                     </td>
                 </tr>
@@ -302,7 +302,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'config';
 
         <p class="submit">
             <input type="submit" name="submit" id="submit" class="button button-primary"
-                   value="<?php esc_attr_e('Save changes', 'storychief'); ?>">
+                   value="<?php esc_attr_e('Save changes', 'story-chief'); ?>">
         </p>
     </form>
 </div>
