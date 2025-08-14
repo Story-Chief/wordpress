@@ -73,15 +73,21 @@ function appendMac($payload) {
  * @return bool
  */
 function validMac($payload) {
-    if (isset($payload['meta']['mac'])) {
-        $givenMac = $payload['meta']['mac'];
-        unset($payload['meta']['mac']);
-        $calcMac = hash_hmac('sha256', json_encode($payload), \Storychief\Settings\get_sc_option('encryption_key'));
+    $encryptionKey = \Storychief\Settings\get_sc_option('encryption_key');
 
-        return hash_equals($givenMac, $calcMac);
+    if( !$encryptionKey || trim($encryptionKey) === '' ) {
+        return false;
     }
 
-    return false;
+    if( !isset($payload['meta']['mac'])){
+        return false;
+    }
+
+    $givenMac = $payload['meta']['mac'];
+    unset($payload['meta']['mac']);
+    $calcMac = hash_hmac('sha256', json_encode($payload), $encryptionKey);
+
+    return hash_equals($givenMac, $calcMac);
 }
 
 /**
