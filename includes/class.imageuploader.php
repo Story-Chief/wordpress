@@ -63,7 +63,7 @@ class ImageUploader
      * Add image to the media library and attach in the post
      * @return bool
      */
-    function save()
+    public function save()
     {
         if($attachment = $this->get_attachment_by_storychief_source_url($this->storychief_url)) {
             $this->url = wp_get_attachment_url( $attachment->ID );

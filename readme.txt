@@ -3,9 +3,9 @@ Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 1.0.42
+Stable tag: 1.0.44
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,6 +92,12 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.43 =
+* Fix security issues where empty encryption keys were allowed
+* Fix security issues were remote code execution was possible.
+* Implemented WordPress best practices
+* Up tested version to WP 6.8
 
 = 1.0.42 =
 * Up tested version to WP 6.7
