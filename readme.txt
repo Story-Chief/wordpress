@@ -5,7 +5,7 @@ Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 1.0.44
+Stable tag: 1.0.45
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

@@ -71,6 +71,17 @@ class ImageUploader
             return true;
         }
 
+        $allowed_filetypes = [
+            'jpg|jpeg|jpe' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'png' => 'image/png',
+        ];
+        $wp_filetype = wp_check_filetype( basename( $this->storychief_url), $allowed_filetypes );
+
+        if ( ! $wp_filetype['ext'] ) {
+            return false;
+        }
+
         $get = wp_remote_get( $this->storychief_url );
 
         $type = wp_remote_retrieve_header( $get, 'content-type' );
