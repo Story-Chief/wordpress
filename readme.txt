@@ -3,41 +3,27 @@ Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
-Tested up to: 6.8
+Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 1.0.45
+Stable tag: 1.0.46
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-All-in-one Content Marketing Workspace
+Connect your tools, knowledge, and workflows to plan, create, manage, and distribute content with smart AI
 
 == Description ==
 
-Collaborate, publish, and measure content marketing success - all from one central platform
-
 https://www.youtube.com/watch?v=Vxlvf_xZML0
 
-StoryChief empowers marketers and agencies with seamless content collaboration, creation, distribution, and delivers comprehensive reporting and analytics for your content marketing endeavors.
+StoryChief is a smart AI content operations platform that helps organizations turn scattered knowledge, disconnected tools, and fragmented workflows into coordinated content execution.
 
-StoryChief elevates content quality, streamlines processes, extends your reach, and improves lead generation with direct publishing to your CMS, social media platforms, DAM, and CRM systems.
+Connect your website, CRM, DAM, analytics, notes, communication tools, and other systems so StoryChief can transform business context into actionable strategies, structured workflows, high-quality content, and multi-channel execution.
 
-Distribute content across all marketing channels with one click, customize campaigns for each platform, and mobilize employees for content promotion.
+From strategy and planning to collaboration, approvals, publishing, amplification, and performance tracking, StoryChief gives teams one connected flow to manage every stage of the content lifecycle.
 
-Accelerate editing processes with approval flows, revisions, and collaborative comments, fostering efficient content production and teamwork.
+Unlike generic AI tools, StoryChief combines AI assistance with human control, approval workflows, brand governance, and workspace-based collaboration.
 
-Leverage SEO copywriting and keyword generator tools to optimize content for search engines, ensuring higher rankings and increased traffic.
-
-Get real-time data insights to identify top-performing content types, fine-tune your content strategy, find new content ideas, and fill your content calendar with content that performs.
-
-
-=== Features ===
-
-*   Centralize team alignment with a unified content marketing calendar.
-*   Streamline content distribution with automatic scheduling across CMS and social media platforms, preserving formatting details like header tags, bold, links, and lists.
-*   Boost Google ranking with built-in SEO copywriting assistance, SEO audit tools, and a Keyword Generator.
-*   Accelerate content creation with strategic AI prompts, featuring brand voice recognition and an AI-driven strategy wizard.
-*   Foster collaborative workflows with approval flows, all while maintaining security by limiting access to your CMS admin panel.
-*   Gain actionable insights through intuitive dashboards and seamless integration with Google Search Console.
+Every output stays editable, reviewable, and aligned with your organization’s standards. Teams use StoryChief to coordinate campaigns, internal communications, thought leadership, editorial workflows, advocacy programs, multi-brand publishing, and cross-channel content operations — all from one centralized platform.
 
 === Actions and filters ===
 
@@ -92,6 +78,10 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.46 =
+* Up tested version to WP 7.0
+* Updated description
 
 = 1.0.43 =
 * Fix security issues where empty encryption keys were allowed
