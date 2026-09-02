@@ -82,7 +82,7 @@ class ImageUploader
             return false;
         }
 
-        $get = wp_remote_get( $this->storychief_url );
+        $get = wp_remote_get( $this->storychief_url, 30 );
 
         $type = wp_remote_retrieve_header( $get, 'content-type' );
 
