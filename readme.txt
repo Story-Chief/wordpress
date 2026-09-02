@@ -3,9 +3,9 @@ Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 5.2
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 1.0.46
+Stable tag: 1.0.47
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ Connect your tools, knowledge, and workflows to plan, create, manage, and distri
 
 https://www.youtube.com/watch?v=Vxlvf_xZML0
 
-StoryChief is a smart AI content operations platform that helps organizations turn scattered knowledge, disconnected tools, and fragmented workflows into coordinated content execution.
+StoryChief is a smart AI content operations platform that helps organizations  turn scattered knowledge, disconnected tools, and fragmented workflows into coordinated content execution.
 
 Connect your website, CRM, DAM, analytics, notes, communication tools, and other systems so StoryChief can transform business context into actionable strategies, structured workflows, high-quality content, and multi-channel execution.
 
@@ -78,6 +78,10 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.47 =
+* Up tested version to WP 7.1
+* Upped timeout on image side-loading to 30 seconds
 
 = 1.0.46 =
 * Up tested version to WP 7.0
