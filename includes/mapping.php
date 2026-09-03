@@ -257,27 +257,17 @@ add_action('storychief_save_featured_image_action', __NAMESPACE__ . '\saveFeatur
 function sideloadImages(\WP_Post $post)
 {
     $content = $post->post_content;
-    $images = \Storychief\Tools\findAllImageUrls($content);
-
-    if ($images === null || empty($images)) {
+    $images = new \Storychief\ResponsiveImages();
+    $content = $images->sideload($content, $post);
+    if ($content === $post->post_content) {
         return false;
-    }
-
-    foreach ($images as $image) {
-        $uploader = new ImageUploader($image['url'], $image['alt'], $post);
-        if ($uploader->validate() && $uploader->save() !== false) {
-            $urlParts = wp_parse_url($uploader->url);
-            $base_url = $uploader::getHostUrl(null, true);
-            $image_url = $base_url . $urlParts['path'];
-            $content = preg_replace('/' . preg_quote($image['url'], '/') . '/', $image_url, $content);
-        }
     }
     $updated_post = array(
         'ID' => $post->ID,
         'post_content' => $content,
     );
 
-    \Storychief\Webhook\safely_upsert_story($updated_post);
+    \Storychief\Webhook\safely_upsert_story(wp_slash($updated_post));
 
     // generic WP cache flush scoped to a post ID.
     // well behaved caching plugins listen for this action.

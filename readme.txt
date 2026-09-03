@@ -2,10 +2,10 @@
 Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content calendar, Social media scheduling, Content marketing, Analytics
-Requires at least: 5.2
+Requires at least: 6.2
 Tested up to: 7.1
-Requires PHP: 7.0
-Stable tag: 1.0.47
+Requires PHP: 7.2
+Stable tag: 1.0.48
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,6 +38,7 @@ Actions:
 *   storychief_save_featured_image_action($payload)
 *   storychief_save_seo_action($payload)
 *   storychief_sideload_images_action($payload)
+*   storychief_image_sideload_error($error, $source_url, $post_id)
 
 Filters:
 *   storychief_before_handle_filter($payload)
@@ -60,7 +61,7 @@ https://www.youtube.com/watch?v=PC7kZSc4e0g
 * This plugin requires a [StoryChief](https://storychief.io) account.
 	* Not a StoryChief user yet? [Sign up for free!](https://app.storychief.io/register)
 * PHP version 7.0 or higher
-* WordPress version 5.2 or higher
+* WordPress version 6.2 or higher (uses the HTML Tag Processor for responsive image sideloading)
 
 == Frequently Asked Questions ==
 
@@ -78,6 +79,11 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.48 =
+* Up minimum WP version to 6.2
+* Up minimum PHP version to 7.2
+* Improved sideloading of images
 
 = 1.0.47 =
 * Up tested version to WP 7.1
@@ -317,4 +323,3 @@ You will have to reconfigure your channel on WordPress and on StoryChief. It wil
 
 = 0.1 =
 First version -- Deprecated --
-

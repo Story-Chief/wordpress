@@ -10,6 +10,7 @@ class ImageUploader
 
     public $url;
     public $attachment_id;
+    public $error;
 
     public function __construct($url, $alt, $post)
     {
@@ -30,7 +31,7 @@ class ImageUploader
 
         $urlParts = wp_parse_url($url);
 
-        if (array_key_exists('host', $urlParts) === false) {
+        if (!is_array($urlParts) || !isset($urlParts['host'])) {
             return null;
         }
 
@@ -66,51 +67,62 @@ class ImageUploader
     public function save()
     {
         if($attachment = $this->get_attachment_by_storychief_source_url($this->storychief_url)) {
-            $this->url = wp_get_attachment_url( $attachment->ID );
-            $this->attachment_id = $attachment->ID;
-            return true;
+            $metadata = wp_get_attachment_metadata($attachment->ID);
+            if (wp_attachment_is_image($attachment->ID) && !empty($metadata['width']) && !empty($metadata['height'])) {
+                $this->url = wp_get_attachment_url($attachment->ID);
+                $this->attachment_id = (int) $attachment->ID;
+                return true;
+            }
         }
 
-        $allowed_filetypes = [
-            'jpg|jpeg|jpe' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'png' => 'image/png',
-        ];
-        $wp_filetype = wp_check_filetype( basename( $this->storychief_url), $allowed_filetypes );
-
-        if ( ! $wp_filetype['ext'] ) {
-            return false;
+        // Parse the path, not the entire URL: query-string URLs are valid too.
+        $filename = wp_basename((string) wp_parse_url($this->storychief_url, PHP_URL_PATH));
+        $wp_filetype = wp_check_filetype($filename);
+        if (!$wp_filetype['type'] || strpos($wp_filetype['type'], 'image/') !== 0) {
+            return $this->fail(new \WP_Error('storychief_image_type', 'The image URL has an unsupported file type.'));
         }
 
-        $get = wp_remote_get( $this->storychief_url, 30 );
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+        require_once ABSPATH . 'wp-admin/includes/image.php';
 
-        $type = wp_remote_retrieve_header( $get, 'content-type' );
-
-        if (!$type || strpos($type, 'image') === false) {
-            return false;
+        // Streams to disk, validates HTTP responses and uses safe redirects.
+        $temporary_file = download_url($this->storychief_url, 30);
+        if (is_wp_error($temporary_file)) {
+            return $this->fail($temporary_file);
+        }
+        if (!wp_get_image_mime($temporary_file) || !wp_getimagesize($temporary_file)) {
+            wp_delete_file($temporary_file);
+            return $this->fail(new \WP_Error('storychief_invalid_image', 'The downloaded file is not a supported image.'));
         }
 
-        $mirror = wp_upload_bits( basename( $this->storychief_url ), null, wp_remote_retrieve_body( $get ) );
+        $file = array('name' => $filename, 'tmp_name' => $temporary_file);
+        // Import one source; let WordPress generate its configured sizes and metadata.
+        $attachment_id = media_handle_sideload($file, $this->post->ID, $this->alt ?: preg_replace('/\.[^.]+$/', '', $filename));
+        if (is_wp_error($attachment_id)) {
+            wp_delete_file($temporary_file);
+            return $this->fail($attachment_id);
+        }
 
-        $attachment = array(
-            'post_mime_type' => $type,
-            'post_title'     => $this->alt ?: preg_replace('/\.[^.]+$/', '', basename($this->storychief_url)),
-            'post_content'   => '',
-            'post_status'    => 'inherit',
-        );
-
-        $attach_id = wp_insert_attachment( $attachment, $mirror['file'], $this->post->ID );
-        update_post_meta( $attach_id, '_storychief_source_url', $this->storychief_url );
-
-        require_once(ABSPATH . 'wp-admin/includes/image.php');
-
-        $attach_data = wp_generate_attachment_metadata( $attach_id, $mirror['file'] );
-
-        wp_update_attachment_metadata( $attach_id, $attach_data );
-
-        $this->attachment_id = $attach_id;
-        $this->url = $mirror['url'];
+        update_post_meta($attachment_id, '_storychief_source_url', $this->storychief_url);
+        update_post_meta($attachment_id, '_wp_attachment_image_alt', (string) $this->alt);
+        $this->attachment_id = (int) $attachment_id;
+        $this->url = wp_get_attachment_url($attachment_id);
         return true;
+    }
+
+    private function fail($error)
+    {
+        $this->error = $error;
+        self::report_error($error, $this->storychief_url, $this->post->ID);
+        return false;
+    }
+
+    public static function report_error($error, $url, $post_id)
+    {
+        // Keep potentially signed/private URLs out of logs, but expose error details to integrations.
+        do_action('storychief_image_sideload_error', $error, $url, $post_id);
+        error_log(sprintf('StoryChief image sideload failed for post %d: %s', $post_id, $error->get_error_code()));
     }
 
     private function get_attachment_by_storychief_source_url( $source_url ) {
