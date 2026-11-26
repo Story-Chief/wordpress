@@ -5,7 +5,7 @@ Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 6.2
 Tested up to: 7.2
 Requires PHP: 7.2
-Stable tag: 1.0.48
+Stable tag: 1.0.49
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,9 @@ Support for [WPBakery](https://help.storychief.io/en/articles/2111311-wordpress-
 6.  Ambassadors
 
 == Changelog ==
+
+= 1.0.49 =
+* Tested up to WordPress 7.2
 
 = 1.0.48 =
 * Up minimum WP version to 6.2
