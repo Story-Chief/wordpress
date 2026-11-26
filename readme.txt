@@ -3,7 +3,7 @@ Contributors: StoryChief
 Donate link: https://storychief.io
 Tags: Content calendar, Social media scheduling, Content marketing, Analytics
 Requires at least: 6.2
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.2
 Stable tag: 1.0.48
 License: GPLv3 or later
